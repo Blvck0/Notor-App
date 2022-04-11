@@ -32,6 +32,9 @@ class _NotesDialogState extends State<NotesDialog> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
         key: _formKey,
         child: Column(
           children: [
