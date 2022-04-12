@@ -4,6 +4,7 @@ import 'dart:collection';
 
 import 'package:notor_/app/data/models/note.dart';
 import 'package:flutter/material.dart';
+import 'package:notor_/app/data/services/note_services.dart';
 
 class NotesOperation extends ChangeNotifier {
   List<Note> _notes = [];
@@ -17,15 +18,18 @@ class NotesOperation extends ChangeNotifier {
   }
 
   void addNewNote(String title, String description) {
-    // Note note = Note();
     Note note = Note(title, description);
     _notes.add(note);
+    NoteService().createNote();
     notifyListeners();
+    
   }
 
   void deleteNote(Note note) {
     _notes.remove(note);
+    NoteService().delNote();
     notifyListeners();
+    
   }
 
   // List<Note> _notes = [];

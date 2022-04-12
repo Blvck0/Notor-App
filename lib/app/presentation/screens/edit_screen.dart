@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:notor_/app/data/models/note.dart';
+import 'package:notor_/core/utils/color.dart';
+import 'package:notor_/core/utils/constants.dart';
 
 class NotesDialog extends StatefulWidget {
   final Note? note;
@@ -31,9 +33,12 @@ class _NotesDialogState extends State<NotesDialog> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kFushiaColor,
       body: Container(
+        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          color: kSepiaColor,
+          borderRadius: BorderRadius.circular(20),
         ),
         key: _formKey,
         child: Column(
@@ -47,9 +52,9 @@ class _NotesDialogState extends State<NotesDialog> {
             ),
             TextButton(
               onPressed: () {
-                var isValid = _formKey.currentState!.validate();
+                var isValid = _formKey.currentState?.validate() ?? true;
                 if (isValid) {
-                  var note = Note(title, description)
+                  var note = Note(title!, description!)
                     ..title = title
                     ..description = description;
                   Navigator.pop(context, note);
@@ -65,6 +70,12 @@ class _NotesDialogState extends State<NotesDialog> {
 
   TextFormField _buildTitleField() {
     return TextFormField(
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Enter Title',
+        hintStyle: kTitleHintStyle,
+      ),
+      style: kTitleTextStyle,
       initialValue: title,
       onChanged: (newValue) {
         title = newValue;
@@ -74,7 +85,14 @@ class _NotesDialogState extends State<NotesDialog> {
 
   TextFormField _buildDescriptionField() {
     return TextFormField(
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        hintText: 'Enter Description',
+        hintStyle: kDescriptionHintStyle,
+      ),
+      style: kDescriptionTextStyle,
       initialValue: description,
+      maxLines: 100,
       onChanged: (newValue) {
         description = newValue;
       },

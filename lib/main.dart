@@ -15,6 +15,8 @@ void main() async {
   runApp(const MyApp());
 }
 
+
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -24,9 +26,6 @@ class MyApp extends StatelessWidget {
       create: (context) => NotesOperation(),
       child: MaterialApp(
         title: 'NOTOR',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
         home: HomeScreen(),
       ),
     );

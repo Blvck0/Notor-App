@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, avoid_print
 
 import 'dart:ffi';
 
@@ -7,6 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notor_/app/data/models/note.dart';
 import 'package:notor_/app/data/models/note_store.dart';
 import 'package:notor_/app/data/models/notesoperation.dart';
+import 'package:notor_/app/data/services/note_services.dart';
 import 'package:notor_/app/presentation/screens/add_screen.dart';
 import 'package:notor_/app/presentation/screens/edit_screen.dart';
 import 'package:notor_/core/utils/color.dart';
@@ -26,6 +27,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<Note> _notes = NotesStore.getNotes();
+
+  @override
+  void initState() {
+    super.initState();
+    var allnote = NoteService().getNote();
+    print(allnote);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,6 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 onDeletePressed: () {
                   setState(() {
+                    
+                    NoteService().delNote();
+                  
                     value.getNotes.removeAt(index);
                   });
                 },
@@ -95,4 +107,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
