@@ -15,6 +15,7 @@ import 'package:notor_/core/utils/widgets/notecard.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
+  
   const HomeScreen({Key? key}) : super(key: key);
 
   void dispose() {
@@ -26,13 +27,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Note> _notes = NotesStore.getNotes();
+  final List<Note> _notes = [];
 
   @override
   void initState() {
+    NoteService.getNote();
+    // var allnote = NotesOperation().getNote(NoteService);
+    // (allnote);
     super.initState();
-    var allnote = NoteService().getNote();
-    print(allnote);
   }
 
   @override
@@ -93,9 +95,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 onDeletePressed: () {
                   setState(() {
-                    
                     NoteService().delNote();
-                  
+
                     value.getNotes.removeAt(index);
                   });
                 },

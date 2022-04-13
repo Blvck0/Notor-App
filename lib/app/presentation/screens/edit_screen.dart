@@ -35,7 +35,10 @@ class _NotesDialogState extends State<NotesDialog> {
     return Scaffold(
       backgroundColor: kFushiaColor,
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 10,
+        ),
         decoration: BoxDecoration(
           color: kSepiaColor,
           borderRadius: BorderRadius.circular(20),
@@ -50,7 +53,11 @@ class _NotesDialogState extends State<NotesDialog> {
             Expanded(
               child: _buildDescriptionField(),
             ),
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: kSepiaColor,
+              
+              ),
               onPressed: () {
                 var isValid = _formKey.currentState?.validate() ?? true;
                 if (isValid) {
@@ -60,7 +67,9 @@ class _NotesDialogState extends State<NotesDialog> {
                   Navigator.pop(context, note);
                 }
               },
-              child: Text('Save'),
+              child: Text('Save', style: kButtonTextStyle,
+              ),
+              
             ),
           ],
         ),
@@ -71,7 +80,7 @@ class _NotesDialogState extends State<NotesDialog> {
   TextFormField _buildTitleField() {
     return TextFormField(
       decoration: InputDecoration(
-        border: InputBorder.none,
+        border: OutlineInputBorder(),
         hintText: 'Enter Title',
         hintStyle: kTitleHintStyle,
       ),
@@ -86,7 +95,7 @@ class _NotesDialogState extends State<NotesDialog> {
   TextFormField _buildDescriptionField() {
     return TextFormField(
       decoration: InputDecoration(
-        border: InputBorder.none,
+        border: OutlineInputBorder(),
         hintText: 'Enter Description',
         hintStyle: kDescriptionHintStyle,
       ),

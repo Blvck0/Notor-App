@@ -27,7 +27,7 @@ const kButtonTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontSize: 20,
   color: kWhiteColor,
-  backgroundColor: kDarkVioletColor,
+  // backgroundColor: kDarkVioletColor,
 );
 
 

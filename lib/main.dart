@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notor_/app/data/models/note.dart';
@@ -12,7 +14,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(NoteAdapter());
   await Hive.openBox<Note>('notes');
-  runApp(const MyApp());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(),),);
 }
 
 
@@ -25,6 +30,8 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<NotesOperation>(
       create: (context) => NotesOperation(),
       child: MaterialApp(
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
         title: 'NOTOR',
         home: HomeScreen(),
       ),

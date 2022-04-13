@@ -18,12 +18,14 @@ class AddScreen extends StatefulWidget {
 }
 
 class _AddScreenState extends State<AddScreen> {
+  // late NewNote _newnote;
   final _title = TextEditingController();
   final _description = TextEditingController();
   @override
   Widget build(BuildContext context) {
     String? titleText;
     String? descriptionText;
+
     return Scaffold(
       backgroundColor: kHotPinkColor,
       appBar: AppBar(
@@ -45,7 +47,7 @@ class _AddScreenState extends State<AddScreen> {
             TextField(
               controller: _title,
               decoration: InputDecoration(
-                border: InputBorder.none,
+                border: OutlineInputBorder(),
                 hintText: 'Enter Title',
                 hintStyle: kTitleHintStyle,
               ),
@@ -54,14 +56,16 @@ class _AddScreenState extends State<AddScreen> {
                 titleText = value;
               },
             ),
+            SizedBox(
+              height: 5,
+            ),
             Expanded(
               child: TextField(
                 controller: _description,
                 decoration: InputDecoration(
-                  border: InputBorder.none,
+                  border: OutlineInputBorder(),
                   hintText: 'Enter Description',
                   hintStyle: kDescriptionHintStyle,
-                  constraints: BoxConstraints.expand(),
                 ),
                 style: kDescriptionTextStyle,
                 maxLines: 100,
@@ -70,17 +74,31 @@ class _AddScreenState extends State<AddScreen> {
                 },
               ),
             ),
-            TextButton(
-              onPressed: () {
+            ElevatedButton(
+               style: ElevatedButton.styleFrom(
+                primary: kDarkVioletColor,),
+              onPressed: () async {
+                String? titleText = _title.text;
+                String? descriptionText = _description.text;
+                NoteService().addNote(titleText,descriptionText);
                 Provider.of<NotesOperation>(context, listen: false)
-                    .addNewNote(titleText!, descriptionText!);
-                Navigator.pop(context);
+                    .addNewNote(titleText, descriptionText);
+                Navigator.pop(context);    
+
+                setState(() {
+                  // String titleText = _title.text;
+                  // String descriptionText = _description.text;
+                  // // String? note = await NoteService().addNote(title, description);
+                  // String? note =
+                  //     NotesOperation().addNewNote(titleText, descriptionText);
+                  // Navigator.pop(context);
+                  // print(note);
+                });
               },
               child: Text(
                 'Add Note',
                 style: kButtonTextStyle,
               ),
-              style: ButtonStyle(),
             )
           ],
         ),
